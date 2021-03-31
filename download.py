@@ -35,11 +35,11 @@ def teste_download(user_uid, file_name):
     #pathcompleto = ((r'C:\\Users\\{pathdois}\\Downloads\\local.csv'),pathdois)
     #print(pathten)
     print("------TESTE Quatro PATH---------")
-    user = os.environ['USERPROFILE']
-    print(user)
+    #user = os.environ['USERPROFILE']
+    #print(user)
     print("------TESTE Cinco PATH---------")
-    pathfinal = str(os.path.join(user,'Downloads\local.csv'))
-    print(pathfinal)
+    #pathfinal = str(os.path.join(user,'Downloads\local.csv'))
+    #print(pathfinal)
     print("------TESTE Seis PATH---------")
     pathfake = str(os.path.join('C:\\Users', 'local.csv'))
     print(pathfake)
