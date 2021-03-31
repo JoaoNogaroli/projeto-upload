@@ -19,7 +19,7 @@ firebase = pyrebase.initialize_app(config)
 storage = firebase.storage()
 
 
-app = Flask("__main__")
+app = Flask(__name__)
 
 port = int(os.environ.get("PORT", 5000))
 
