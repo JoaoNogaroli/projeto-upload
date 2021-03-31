@@ -1,9 +1,10 @@
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, render_template_string, make_response
 import os
 import pyrebase
 from cadastro import func_cadastrar
 from salvar import salvar
 from download import teste_download
+import pandas as pd
 
 config = {
     'apiKey': "AIzaSyC2sj1gQU0lSPY8tlnsCsP9bFEXEfx69ec",
@@ -48,7 +49,7 @@ def realizar_cadastro():
         fim = "Email já cadastrado"
         return render_template('pag_cad.html', fim=fim)
 
-app.config["ALLOWED_FILE_EXTENSIONS"] = ["XLSX", "CSV"]
+app.config["ALLOWED_FILE_EXTENSIONS"] = ["XLSX","XLRD", "CSV"]
 
 def allow(filename):
     if not "." in filename:
@@ -85,8 +86,9 @@ def download():
     file_name = request.form['filename']
     print(user_uid + "_e_ " + file_name)
     try:
-        teste_download(user_uid, file_name)
-        return "OK"
+        df = teste_download(user_uid, file_name)
+        resp = make_response(render_template_string(df.to_html()))
+        return resp
     except Exception as e:
         print(e)
         return "ERROR"

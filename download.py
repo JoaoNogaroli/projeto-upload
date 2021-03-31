@@ -5,6 +5,9 @@ def teste_download(user_uid, file_name):
     import os
     import webbrowser
     from pathlib import Path
+    import requests
+    import io
+
 
     config = {
     'apiKey': "AIzaSyC2sj1gQU0lSPY8tlnsCsP9bFEXEfx69ec",
@@ -25,7 +28,7 @@ def teste_download(user_uid, file_name):
     print(arquivo)
     print(url)
     print("-----TESTE PRIMEIRO PATH--------")
-    path_to_download_folder = str(os.path.join(Path.home(), "Downloads/local.csv"))
+    path_to_download_folder = str(os.path.join(Path.home(), "Downloads\local.csv"))
     print(path_to_download_folder)
     print("------TESTE SGUNDO PATH---------")
     pathdois= os.getenv('username')
@@ -41,9 +44,18 @@ def teste_download(user_uid, file_name):
     #pathfinal = str(os.path.join(user,'Downloads\local.csv'))
     #print(pathfinal)
     print("------TESTE Seis PATH---------")
-    pathfake = str(os.path.join('C:/Users/.../Downloads', 'local.csv'))
-    print(pathfake)
-    storage.child("File").child("user:_"+user_uid).child(file_name).download(pathfake)
+    #print(s)
+    try:
+        print("Tentando CSV")
+        df=pd.read_csv(url, sep=';' , encoding='latin-1')
+        
+    except:
+        print("Tentando Excel")
+        df=pd.read_excel(url)
+    return df              
+    #pathfake = str(os.path.join('C:/Users/.../Downloads', 'local.csv'))
+    #print(pathfake)
+    #storage.child("File").child("user:_"+user_uid).child(file_name).download(pathfake)
     # ESSE COMANDO FAZ O DOWNLOAD!!!!!
     #---->>>>>>>>>>>>.    #teste = webbrowser.open(url)
     #------
