@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-storage.js"></script>
+
+    <script src="/static/js/app.js"></script>
+    <title>Página dois</title>
+</head>
+<body>
+    <title>Upload new File</title>
+    <h3 id="email"></h3>
+    
+    <h1>Upload new File</h1>
+    <form action="/upload" method=post enctype=multipart/form-data>
+      <p><input type=file name=file><br><br><br>
+         <input type=submit value=Upload><br><br>
+         <input id="user_id" name="user_id" type="text" readonly style="width: 10px;;background-color: white; color:white; text-decoration: none;border:none;">
+    </form>
+    <h2>{{ fim }}</h2>
+    <hr>
+    <br><br>
+    <input type="button" value="Visualizar meus envios" onclick="vis()">
+    <br><br>
+    <!--<form action="/analise_escolhido" method="POST">-->
+        <div id="div_lista"></div>
+        <input id="user_id_dois" name="user_id_dois" type="text" readonly style="width: 10px;;background-color: white; color:white; text-decoration: none;border:none;">
+        <br><input type="submit" value="Analisar" onclick="analise()">
+    <!--</form>-->
+    <script src="/static/js/user_logged.js"></script>
+</body>
+</html>
