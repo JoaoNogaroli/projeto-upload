@@ -24,9 +24,18 @@ def teste_download(user_uid, file_name):
     url = arquivo.get_url(None)
     print(arquivo)
     print(url)
+    print("-----TESTE PRIMEIRO PATH--------")
     path_to_download_folder = str(os.path.join(Path.home(), "Downloads/local.csv"))
+    print(path_to_download_folder)
+    print("------TESTE SGUNDO PATH---------")
+    pathdois= os.getenv('username')
+    print(pathdois)
+    print("------TESTE terceiro PATH---------")
+    pathten = os.path.join('C:\\Users', pathdois,'Downloads\local.csv')
+    #pathcompleto = ((r'C:\\Users\\{pathdois}\\Downloads\\local.csv'),pathdois)
+    print(pathten)
 
-    storage.child("File").child("user:_"+user_uid).child(file_name).download(path_to_download_folder)
+    storage.child("File").child("user:_"+user_uid).child(file_name).download(pathten)
     # ESSE COMANDO FAZ O DOWNLOAD!!!!!
     #---->>>>>>>>>>>>.    #teste = webbrowser.open(url)
     #------
