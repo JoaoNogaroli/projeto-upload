@@ -51,7 +51,7 @@ def teste_download(user_uid, file_name):
         
     except:
         print("Tentando Excel")
-        df=pd.read_excel(url)
+        df=pd.read_excel(url, engine='openpyxl')
     return df              
     #pathfake = str(os.path.join('C:/Users/.../Downloads', 'local.csv'))
     #print(pathfake)
