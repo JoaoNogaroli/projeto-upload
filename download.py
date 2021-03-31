@@ -31,7 +31,7 @@ def teste_download(user_uid, file_name):
     pathdois= os.getenv('username')
     print(pathdois)
     print("------TESTE terceiro PATH---------")
-    pathten = os.path.join('C:\\Users', pathdois,'Downloads\local.csv')
+    pathten = str(os.path.join('C:\\Users', pathdois,'Downloads\local.csv'))
     #pathcompleto = ((r'C:\\Users\\{pathdois}\\Downloads\\local.csv'),pathdois)
     print(pathten)
 
