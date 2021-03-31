@@ -4,6 +4,7 @@ def teste_download(user_uid, file_name):
     import pandas as pd
     import os
     import webbrowser
+    from pathlib import Path
 
     config = {
     'apiKey': "AIzaSyC2sj1gQU0lSPY8tlnsCsP9bFEXEfx69ec",
@@ -23,7 +24,9 @@ def teste_download(user_uid, file_name):
     url = arquivo.get_url(None)
     print(arquivo)
     print(url)
-    storage.child("File").child("user:_"+user_uid).child(file_name).download("local.csv")
+    path_to_download_folder = str(os.path.join(Path.home(), "Downloads/local.csv"))
+
+    storage.child("File").child("user:_"+user_uid).child(file_name).download(path_to_download_folder)
     # ESSE COMANDO FAZ O DOWNLOAD!!!!!
     #---->>>>>>>>>>>>.    #teste = webbrowser.open(url)
     #------
