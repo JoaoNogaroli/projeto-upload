@@ -40,7 +40,10 @@ def teste_download(user_uid, file_name):
     print("------TESTE Cinco PATH---------")
     pathfinal = str(os.path.join(user,'Downloads\local.csv'))
     print(pathfinal)
-    storage.child("File").child("user:_"+user_uid).child(file_name).download(pathfinal)
+    print("------TESTE Seis PATH---------")
+    pathfake = str(os.path.join('C:\\Users', 'local.csv'))
+    print(pathfake)
+    storage.child("File").child("user:_"+user_uid).child(file_name).download(pathfake)
     # ESSE COMANDO FAZ O DOWNLOAD!!!!!
     #---->>>>>>>>>>>>.    #teste = webbrowser.open(url)
     #------
