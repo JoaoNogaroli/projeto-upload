@@ -28,11 +28,14 @@
     <br><br>
     <input type="button" value="Visualizar meus envios" onclick="vis()">
     <br><br>
-    <!--<form action="/analise_escolhido" method="POST">-->
+    <form action="/analise_escolhido" method="POST" >
         <div id="div_lista"></div>
         <input id="user_id_dois" name="user_id_dois" type="text" readonly style="width: 10px;;background-color: white; color:white; text-decoration: none;border:none;">
+        <br><input id="filename" name="filename" type="text" readonly style="width: 10px;;background-color: white; color:white; text-decoration: none;border:none;">
+
         <br><input type="submit" value="Analisar" onclick="analise()">
-    <!--</form>-->
+
+    </form>
     <script src="/static/js/user_logged.js"></script>
 </body>
 </html>

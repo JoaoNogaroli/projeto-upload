@@ -1,6 +1,10 @@
-import pyrebase
 
-def teste_download():
+def teste_download(user_uid, file_name):
+    import pyrebase
+    import pandas as pd
+    import os
+    import webbrowser
+
     config = {
     'apiKey': "AIzaSyC2sj1gQU0lSPY8tlnsCsP9bFEXEfx69ec",
     'authDomain': "files-b6c7a.firebaseapp.com",
@@ -15,3 +19,12 @@ def teste_download():
     database = firebase.database()
     storage  = firebase.storage()
     print('OK')
+    arquivo = storage.child("File").child("user:_"+user_uid).child(file_name)
+    url = arquivo.get_url(None)
+    print(arquivo)
+    print(url)
+    storage.child("File").child("user:_"+user_uid).child(file_name).download("local.csv")
+    # ESSE COMANDO FAZ O DOWNLOAD!!!!!
+    #---->>>>>>>>>>>>.    #teste = webbrowser.open(url)
+    #------
+    #valor.download(filename="arq.csv")

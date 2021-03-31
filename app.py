@@ -79,9 +79,16 @@ def upload_file():
                 salvar(user_id, file_to_save.filename, file_to_save)
                 return render_template('user_logged.html', fim=fim)
 
-@app.route("/download", methods=["POST"])
+@app.route("/analise_escolhido", methods=["POST"])
 def download():
-    return teste_download()
-
+    user_uid = request.form['user_id_dois']
+    file_name = request.form['filename']
+    print(user_uid + "_e_ " + file_name)
+    try:
+        teste_download(user_uid, file_name)
+        return "OK"
+    except Exception as e:
+        print(e)
+        return "ERROR"
 if __name__ == "__main__":
     app.run(debug=True, port=port)

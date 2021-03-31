@@ -52,4 +52,5 @@ function vis(){
 function analise(){
     var escolha = document.getElementById("selecao").value;
     console.log(escolha);
+    document.getElementById("filename").value = escolha;
 }
