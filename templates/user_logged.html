@@ -1,41 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-storage.js"></script>
+{% extends "base.html" %}
 
-    <script src="/static/js/app.js"></script>
-    <title>Página dois</title>
-</head>
-<body>
-    <title>Upload new File</title>
-    <h3 id="email"></h3>
+{% block content %}
+<title>Upload new File</title>
+
+<div class="container">
+    <nav class="nav">
+        <a class="nav-link active" href="#">TEste1</a>
+        <a class="nav-link" href="#">TEste2</a>
+        <a class="nav-link" href="#">TEste3</a>
+        <a  class="nav-link"id='email'></a>
+      </nav>
+
+<h1>Upload new File</h1>
+<br>
+<form action="/upload" method=post enctype=multipart/form-data>
+    <input class="btn btn-outline-primary" type=file name=file><br><br><br>
+        <input class="btn btn-outline-primary" type=submit value=Upload><br><br>
+        <input id="user_id" name="user_id" type="text" readonly style="width: 10px;;background-color: white; color:white; text-decoration: none;border:none;">
+</form>
+<h2>{{ fim }}</h2>
+<hr>
+<br><br>
+<input class="btn btn-outline-primary" type="button" value="Visualizar meus envios" onclick="vis()">
+<br><br>
+<form action="/analise_escolhido" method="POST" >
+    <div id="div_lista"></div>
+    <input id="user_id_dois" name="user_id_dois" type="text" readonly style="width: 10px;;background-color: white; color:white; text-decoration: none;border:none;">
+    <br><input  id="filename" name="filename" type="text" readonly style="width: 10px;;background-color: white; color:white; text-decoration: none;border:none;">
+
+    <br><input class="btn btn-outline-primary" type="submit" value="Analisar" onclick="analise()">
+
+</form>
+<br><br>
+<div class="row">
+    <div class="col-sm">
+        <div class="card" style="width: 18rem;">
+            <img src="/static/um.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Teste 1</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm">
+        <div class="card" style="width: 18rem;">
+            <img src="/static/um.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Teste 2</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
     
-    <h1>Upload new File</h1>
-    <form action="/upload" method=post enctype=multipart/form-data>
-      <p><input type=file name=file><br><br><br>
-         <input type=submit value=Upload><br><br>
-         <input id="user_id" name="user_id" type="text" readonly style="width: 10px;;background-color: white; color:white; text-decoration: none;border:none;">
-    </form>
-    <h2>{{ fim }}</h2>
-    <hr>
-    <br><br>
-    <input type="button" value="Visualizar meus envios" onclick="vis()">
-    <br><br>
-    <form action="/analise_escolhido" method="POST" >
-        <div id="div_lista"></div>
-        <input id="user_id_dois" name="user_id_dois" type="text" readonly style="width: 10px;;background-color: white; color:white; text-decoration: none;border:none;">
-        <br><input id="filename" name="filename" type="text" readonly style="width: 10px;;background-color: white; color:white; text-decoration: none;border:none;">
+    
+</div><br><br>
+    
+</div>
 
-        <br><input type="submit" value="Analisar" onclick="analise()">
+  
+</div>
 
-    </form>
-    <script src="/static/js/user_logged.js"></script>
-</body>
-</html>
+
+<script src="/static/js/user_logged.js"></script>
+{% endblock %}

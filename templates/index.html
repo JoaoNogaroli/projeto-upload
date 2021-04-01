@@ -1,31 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
+{% extends "base.html" %}
 
-    <script src="/static/js/app.js"></script>
-    <title>Upload</title>
-</head>
-<body>
-    <h2>Cadastre-se</h2>
-    <form action="/pag_cad" method="POST">
-        <input type="submit" id="pag_cadastro" value="Ir para Página de Cadastro">
-    </form> 
-    <hr>
-    <h1>{{ email }}</h2>
-    <h2>Efetue seu Login</h2>
-    <h3>{{error}}</h3>
-    <!--<form action="/realizar_login", method="POST">-->
-        <input type="text" name="email" id="email">
-        <input type="text" name="senha" id="senha">
-        <input type="submit" value="Logar" onclick="logar()">
-    <!--</form>-->
-    <script src="/static/js/index.js"></script>
-</body>
-</html>
+{% block content %}
+<title>Session</title>
+
+
+<div class="container">
+    <br><br>
+    <hr class="shadow-none  p-3 mb-5 bg-white rounded"> 
+    <div class="row shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="col-sm">
+            <div class="card" style="width: 18rem;">
+                <h2>Cadastre-se</h2>
+                <img class="card-img-top" src="/static/um.PNG" alt="Card image cap"><br>
+                <form action="/pag_cad" method="POST">
+                    <input type="submit" class="btn btn-outline-dark" id="pag_cadastro" value="Ir para Página de Cadastro">
+                </form> <br>
+                <h1 class="badge bg-secondary">{{ email }}</h2>
+            </div>    
+        </div><br><br>
+        <div class="col-sm">
+            <h2>Efetue seu Login</h2>
+            <h3>{{error}}</h3>
+            <!--<form action="/realizar_login", method="POST">-->
+            <div class="form-group">
+               <label for="exampleInputEmail1">Digita seu Email</label>
+               <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" name="senha" id="senha" class="form-control" placeholder="Password">
+            </div>  
+            <br> 
+            <input type="submit"  class="btn btn-outline-dark" value="Logar" onclick="logar()"><br>
+            <!--</form>-->      
+            
+            <br>
+        </div>
+    </div>
+  </div>
+
+
+
+<script src="/static/js/index.js"></script>
+{% endblock %}

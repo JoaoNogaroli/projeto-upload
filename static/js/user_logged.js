@@ -2,7 +2,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         var email_user = firebase.auth().currentUser.email;
         var user_id = firebase.auth().currentUser.uid;
-        document.getElementById("email").innerHTML = email_user;
+        document.getElementById("email").innerHTML = "Logado como: "+ email_user;
         console.log("EMAIL :" + email_user);
         console.log("Usuario ID:" +  user_id);
 
@@ -34,6 +34,8 @@ function vis(){
         var div_lista = document.getElementById("div_lista");
         var select = document.createElement('select');
         select.id="selecao";
+        select.className="form-select";
+        
         result.items.forEach(function(imageRef) {
             // And finally display them
             console.log(imageRef);
