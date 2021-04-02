@@ -1,27 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+{% extends "base.html" %}
 
+{% block content %}
 
-    <title>Cadastro</title>
-</head>
-<body>
-    <p>Realize seu Cadastro!</p>
-    <h2>{{ fim }}</h2>
-    <form action="/realizar_cadastro" method="POST">
-        <input type="text" name="email" placeholder="Insira seu Email">
-        <input type="password" name="senha" placeholçder="Insira sua Senha">
+<title>Cadastro</title>
+<div class="container"> 
+    <div class="col-sm row shadow p-3 mb-5 bg-white rounded">
 
-        <input type="submit" value="Cadastrar">
-        
-    </form>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="/">Página Inicial</a>
+          </li>
+    <li class="nav-item">
+      <a class="nav-link active" href="/pag_cad">Realize seu Cadastro</a>
+    </li>
+    
+    
+    
+  </ul>
+            
+            <h2>{{ fim }}</h2>
+            <form action="/realizar_cadastro" method="POST">
+                <div class="form-group">
 
-</body>
-</html>
+                    <label for="exampleInputEmail1">Digita seu Email</label><br>
+                    <input type="text" name="email" placeholder="Insira seu Email">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label><br>
+                    <input type="password" name="senha" placeholder="Insira sua Senha">
+                </div>
+                <input type="submit" value="Cadastrar">
+                
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

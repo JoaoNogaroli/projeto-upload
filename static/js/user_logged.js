@@ -2,7 +2,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         var email_user = firebase.auth().currentUser.email;
         var user_id = firebase.auth().currentUser.uid;
-        document.getElementById("email").innerHTML = "Logado como: "+ email_user;
+        document.getElementById("email").innerHTML = "Olá "+ email_user;
         console.log("EMAIL :" + email_user);
         console.log("Usuario ID:" +  user_id);
 
@@ -20,7 +20,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 function vis(){
     console.log("ES")
     var storageRef = storage.ref("File");
-    var user_uid = document.getElementById('user_id').value;
+    var user_uid = document.getElementById('user_id_dois').value;
     var storage_res =  storageRef.child("user:_"+user_uid);/*.child("análise.xlsx")*/
     /*console.log('File/'+'user:_'+user_uid)*/
     //console.log(storage_res)

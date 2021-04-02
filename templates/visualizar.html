@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <nav class="nav">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Página Inicial</a>
+            </li>
+        <li class="nav-item">
+        <a class="nav-link active" href="/visualizar">Visualizar meus Envios</a>
+        </li>
+    </nav>
+<br>
+    <h4 id="email"></h4><br>
+
+    <input class="btn btn-outline-primary" type="button" value="Visualizar meus envios" onclick="vis()">
+    <br>
+    <!--<form action="/analise_escolhido" method="POST" >
+        <div id="div_lista"></div>
+        <input id="user_id_dois" name="user_id_dois" type="text" readonly style="width: 100px;;background-color: white; color:black; text-decoration: none;border:none;">
+        <br><input  id="filename" name="filename" type="text" readonly style="width: 100px;;background-color: white; color:black; text-decoration: none;border:none;">
+
+        <br><input class="btn btn-outline-primary" type="submit" value="Analisar" onclick="analise()">
+
+    </form>
+    <br><br>
+-->
+    <form action="/analise_escolhido" method="POST" >
+        <input  id="filename_dois" name="filename" type="text" readonly style="width: 1px;;background-color: white; color:black; text-decoration: none;border:none;">
+        <input id="user_id_tres" name="user_id_dois" type="text" readonly style="width: 1px;;background-color: white; color:black; text-decoration: none;border:none;">
+
+        <div id="row" class="row">
+
+        <!--
+        <div class="col-sm">
+            <div class="card" style="width: 18rem;">
+                <img src="/static/um.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title">Teste 1</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card" style="width: 18rem;">
+                <img src="/static/um.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title">Teste 2</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+          -->
+        </div>
+    </form>    
+</div>
+<script src="/static/js/visualizar.js"></script>
+
+{% endblock %}

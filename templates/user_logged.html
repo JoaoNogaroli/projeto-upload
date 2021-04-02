@@ -5,58 +5,30 @@
 
 <div class="container">
     <nav class="nav">
-        <a class="nav-link active" href="#">TEste1</a>
-        <a class="nav-link" href="#">TEste2</a>
-        <a class="nav-link" href="#">TEste3</a>
-        <a  class="nav-link"id='email'></a>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Página Inicial</a>
+              </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/user_logged">Envie Arquivos</a>
+        </li>
+        
       </nav>
+<br>
+<h4 id="email"></h4>
 
-<h1>Upload new File</h1>
+<h1>Faça Upload de um arquivo: Xlsx ou Csv</h1>
 <br>
 <form action="/upload" method=post enctype=multipart/form-data>
-    <input class="btn btn-outline-primary" type=file name=file><br><br><br>
-        <input class="btn btn-outline-primary" type=submit value=Upload><br><br>
-        <input id="user_id" name="user_id" type="text" readonly style="width: 10px;;background-color: white; color:white; text-decoration: none;border:none;">
+    <input class="form-control form-control-lg" type=file name=file><br>
+    <input class="btn btn-outline-dark" type=submit value=Enviar><br>
+    <input id="user_id" name="user_id" type="text" readonly style="width: 10px;;background-color: white; color:white; text-decoration: none;border:none;">
 </form>
 <h2>{{ fim }}</h2>
 <hr>
-<br><br>
-<input class="btn btn-outline-primary" type="button" value="Visualizar meus envios" onclick="vis()">
-<br><br>
-<form action="/analise_escolhido" method="POST" >
-    <div id="div_lista"></div>
-    <input id="user_id_dois" name="user_id_dois" type="text" readonly style="width: 10px;;background-color: white; color:white; text-decoration: none;border:none;">
-    <br><input  id="filename" name="filename" type="text" readonly style="width: 10px;;background-color: white; color:white; text-decoration: none;border:none;">
+<br>
+<a href="/visualizar"><button type="button" class="btn btn-outline-dark">Visualize seus envios</button></a>
 
-    <br><input class="btn btn-outline-primary" type="submit" value="Analisar" onclick="analise()">
-
-</form>
-<br><br>
-<div class="row">
-    <div class="col-sm">
-        <div class="card" style="width: 18rem;">
-            <img src="/static/um.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Teste 1</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm">
-        <div class="card" style="width: 18rem;">
-            <img src="/static/um.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Teste 2</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-    
-    
-</div><br><br>
-    
 </div>
 
   

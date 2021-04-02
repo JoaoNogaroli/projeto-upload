@@ -28,6 +28,7 @@ port = int(os.environ.get("PORT", 5000))
 def index():
     return render_template('index.html')
 
+@app.route("/pag_cad")
 @app.route("/pag_cad", methods=['POST'])
 def pag_cad():
     return render_template('pag_cad.html')
@@ -92,5 +93,10 @@ def download():
     except Exception as e:
         print(e)
         return "ERROR"
+
+@app.route("/visualizar")
+def pag_visualizar():
+    return render_template("visualizar.html")
+
 if __name__ == "__main__":
     app.run(debug=True, port=port)
