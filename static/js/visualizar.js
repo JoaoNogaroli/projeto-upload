@@ -61,7 +61,7 @@ function vis(){
             divteste_dois_card.className = "card";
             imagem_card = document.createElement('img');
             imagem_card.className = "card-img-top";
-            imagem_card.setAttribute("src", "um.png");
+            imagem_card.setAttribute("src", "/static/um.PNG");
             divteste_tres = document.createElement("div");
             divteste_tres.className = "card-body";
             texto = document.createElement('h5')
