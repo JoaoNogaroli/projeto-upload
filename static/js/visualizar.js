@@ -18,6 +18,9 @@ firebase.auth().onAuthStateChanged(function(user) {
   });
 
 function vis(){
+    var button = $('#botao_vis');
+
+    button.prop('disabled', true);
     console.log("ES")
     var storageRef = storage.ref("File");
     var user_uid = document.getElementById('user_id_tres').value;
