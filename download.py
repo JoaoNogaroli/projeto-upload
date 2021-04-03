@@ -7,6 +7,7 @@ def teste_download(user_uid, file_name):
     from pathlib import Path
     import requests
     import io
+    import csv
 
 
     config = {
@@ -48,11 +49,14 @@ def teste_download(user_uid, file_name):
     try:
         print("Tentando CSV")
         df=pd.read_csv(url, sep=';' , encoding='latin-1')
+        return df
         
     except:
         print("Tentando Excel")
-        df=pd.read_excel(url, engine='openpyxl')
-    return df              
+        df=pd.read_excel(url, engine='openpyxl') 
+        return df
+ 
+            
     #pathfake = str(os.path.join('C:/Users/.../Downloads', 'local.csv'))
     #print(pathfake)
     #storage.child("File").child("user:_"+user_uid).child(file_name).download(pathfake)

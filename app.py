@@ -5,6 +5,8 @@ from cadastro import func_cadastrar
 from salvar import salvar
 from download import teste_download
 import pandas as pd
+import csv
+
 
 config = {
     'apiKey': "AIzaSyC2sj1gQU0lSPY8tlnsCsP9bFEXEfx69ec",
@@ -86,10 +88,61 @@ def download():
     user_uid = request.form['user_id_dois']
     file_name = request.form['filename']
     print(user_uid + "_e_ " + file_name)
+    print('1   -------')
     try:
+        results = []
+        items= []
         df = teste_download(user_uid, file_name)
-        resp = make_response(render_template_string(df.to_html()))
-        return resp
+        dfdi= df.to_dict()
+        print(df)
+        print('1--------DICIONARIO------')
+
+        for colum in dfdi.keys():
+            results.append(colum) 
+
+        for row in dfdi:
+            items.append(dfdi[row])
+
+        #print(results)
+        print('2--------Lista com os Results------')
+
+        #print(df[results[1]])
+        #print("Quantidade de linhas "+str(len(df[results[0]])))
+        print('3--------Teste------')
+
+        quantidade_rows = df.shape[0]
+        #print(df.shape[0])
+        #print('4--------Teste  2------')
+       #print(items)
+        print('5--------Teste  3------')
+        #for row in items:
+        #    print(row)
+            
+            #for index in range(0,len(results)-1):
+                
+                #print(row[results[index]])
+        '''print(items[0][0])
+        print(items[1][0])
+        print(items[2][0])
+        print(items[3][0])
+        print(items[4][0])'''
+
+        print('6--------Teste  4------')
+        #for row in items:
+       #    # print(row)
+        #    for i in row:
+             #   print(row[i])
+        """print('7--------Teste 5------')
+        print(items[0])
+        print('8--------Teste6------')
+        print(items[0][0])
+        print('9--------Teste 8------')
+        print(items[6])
+        print('8--------Teste 9------')
+        print(items[6][0])"""
+
+
+        return render_template('teste.html', results=results,items=items, quantidade_rows=quantidade_rows, df=df, len=len)
     except Exception as e:
         print(e)
         return "ERROR"
