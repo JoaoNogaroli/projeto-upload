@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, render_template_string, make_response
+from flask import Flask, request, render_template, redirect, render_template_string, make_response, url_for, session
 import os
 import pyrebase
 from cadastro import func_cadastrar
@@ -11,7 +11,8 @@ from geopy.geocoders import Nominatim
 import pprint
 import urllib.parse
 import requests
-
+import secrets
+import itertools
 
 config = {
     'apiKey': "AIzaSyC2sj1gQU0lSPY8tlnsCsP9bFEXEfx69ec",
@@ -30,6 +31,11 @@ storage = firebase.storage()
 app = Flask(__name__)
 
 port = int(os.environ.get("PORT", 5000))
+
+import secrets
+secret_key = secrets.token_hex(16)
+app.config['SECRET_KEY'] = secret_key
+
 
 @app.route("/")
 def index():
@@ -200,6 +206,7 @@ def pag_visualizar():
 def criar():
     return render_template("criar.html")
 
+
 @app.route("/criar_tab", methods=['POST'])
 def criar_tab():
     valor = request.form['valor']
@@ -221,6 +228,100 @@ def criar_tab():
         
     print(lista)
     return render_template('linhas.html', lista=lista)
+
+@app.route("/criar_tab")
+def redi():
+    return render_template('linhas.html')
+"""
+@app.route("/<id>", methods=['POST'])
+def testando(id):
+    
+    listinha  = request.form['listinha']
+    nomes = []
+    nome = listinha.split(",")
+    nomes.append(nome)
+    print(id)
+    #print(nomes)
+    for item in nomes:
+        for i in item:
+            print(i)
+    return redirect(url_for('criar_tab'))"""
+
+@app.route("/criar_dois")
+def criar_dois():
+    return render_template('criar_dois.html')
+
+@app.route("/criar_dois_tab", methods=['POST'])
+def criar_dois_tab():
+    valor = request.form['valor']
+    global lista_add
+    lista = []
+    print("VAlor :", valor)
+
+    valor_a_somar = int(valor)
+    valor_final = valor_a_somar+1
+    print(valor_final)
+    try:
+        for i in range(1,valor_final):
+            nome = request.form[''+str(i)+'']
+            lista.append(nome)
+            print(f"Loop nº {i} + Nome: {nome} ")
+
+            i = i +1
+    except Exception as e:
+        print(e)
+        
+    print(lista)
+    session['lista_add'] = lista
+    return render_template('criar_dois_linhas.html', lista=lista)   
+
+def grouper(n, iterable, fillvalue=None):
+    "grouper(3, 'ABCDEFG', 'x') --> ABC DEF Gxx"
+    args = [iter(iterable)] * n
+    return itertools.zip_longest(fillvalue=fillvalue, *args)
+
+@app.route("/criar_novo_linhas", methods=['POST'])
+def criar_novo_linhas():
+    lista_pegar = session.get('lista_add')
+    print("Lista das Colunas :", lista_pegar)
+    print("Tamanho das colunas: ", len(lista_pegar))
+    valor_a_resgatar = request.form['valor_a_resgatar']
+    valor_a_resgatar_alterado = valor_a_resgatar.split(',')
+    valores_finais = []
+    for i in range(1, len(valor_a_resgatar_alterado)-1):
+       valores_finais .append(valor_a_resgatar_alterado[i])
+    print("Linhas Resgatadas: ",valores_finais)
+    
+    tamanho_total = int(len(valores_finais))
+    tamanho_dividido = int(len(valores_finais)/len(lista_pegar))
+    
+    print("Tamanho total das linhas: ", tamanho_total)
+    print("Quantas linhas por colunas: ", tamanho_dividido)
+ 
+    
+    novo = list(grouper(int(tamanho_dividido), valores_finais))
+
+    print(novo)
+    res = dict(zip(lista_pegar, novo))
+    print(res)
+
+    #PEGAR COLUNAS
+    try:
+        results = []
+        items= []
+        for colum in res.keys():
+            results.append(colum) 
+
+        for row in res:
+            items.append(res[row])
+
+
+    except Exception as e:
+        print(e)
+    #TRANSFORMOU EM DATAFRAME FINAL
+    new = pd.DataFrame.from_dict(res)
+    print(new)
+    return render_template('last.html', results=results, items=items, len=len)
 
 if __name__ == "__main__":
     app.run(debug=True, port=port)

@@ -9,7 +9,7 @@
         <div class="card-body">
             <h5 class="card-title">Continue criando Sua tabela</h5><br>
 
-            <form id="formu" method="POST">
+            <form id="{{'formu ' + item}}" action="/{{item}}" method="POST">
                 <div class="card">
                     <div class="card-body">
                         <div class="form-group">
@@ -19,14 +19,15 @@
                                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                             </svg><br><br>
                             <div id="{{'Clear ' + item}}" class="{{item}}">
-                            <input class="form-control" placeholder='Insira o valor da Linha' name="1">
+                            <input id="{{'input' + item}}" class="form-control" placeholder='Insira o valor da Linha'>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <input id="valor" name="valor" type="text" readonly style="width: 1px;;background-color: white; color:black; text-decoration: none;border:none;">
-                            <input type="submit" class="btn btn-dark" value="Inserir" onclick="pegar()">
+                            <input id="{{'Valor ' + item}}" name="valor" type="text" readonly style="width: 1px;;background-color: white; color:black; text-decoration: none;border:none;">
+                            <input id="{{'teste' + item}}" name="listinha" readonly type="text" style="width: 100px;;background-color: white; color:black; text-decoration: none;border:none;">
+                            <input id="{{'Botao' + item}}" type="submit" class="btn btn-dark" value="Salvar" >
                         </div>
                     </div>
                 </div>
@@ -57,10 +58,11 @@ lista_id.forEach(function(essa){
         console.log("VALORRR " + essa)
         var divv = document.getElementById("Clear "+essa);
         var input_e = document.createElement('input');
+        input_e.id='input'+essa
         input_e.className = 'form-control';
-        input_e.placeholder = 'Insira o nome da Coluna';
+        input_e.placeholder = 'Insira o valor da linha';
 
-        var e = document.forms["formu"] ;
+        var e = document.forms["formu "+essa] ;
         e= e.getElementsByTagName('input');
         qnt_input = e.length-1;
         input_e.name=qnt_input;
@@ -69,6 +71,27 @@ lista_id.forEach(function(essa){
         divv.appendChild(br);
         divv.appendChild(input_e);
     })
+
+    $('#Botao'+essa).submit(function(e) {
+        e.preventDefault();
+    });
+    $('#Botao'+essa).click(function(){
+        var elms = document.querySelectorAll('[id="input' + essa + '"]');
+       
+         
+        listanomes = [];
+        console.log("TAMANHO " +essa.length)
+
+        elms.forEach(function(nomes){
+            nomes.name = nomes;
+            
+            console.log(nomes.value);
+            listanomes.push(nomes.value);
+        })
+        console.log(listanomes);
+        document.getElementById('teste'+essa).value = listanomes;
+    })
+
 
 })
 
@@ -96,6 +119,13 @@ id_form.appendChild(input_e);*/
     document.getElementById("valor").value = qnt_input;
     //window.alert("Total :" + qnt_input) ; 
 }*/
+
+
+/*var e = document.forms["formu"] ;
+e= e.getElementsByTagName('input');
+qnt_input = e.length-2;
+document.getElementById("valor").value = qnt_input;
+window.alert("Total :" + qnt_input) ; */
 
 </script>
 
