@@ -69,7 +69,7 @@ function vis(){
             texto.innerHTML = imageRef.name;
             botao_card = document.createElement('button');
             botao_card.className = "btn btn-outline-success";
-            botao_card.innerHTML="Analisar";
+            botao_card.innerHTML="Ver Tabela";
             botao_card.onclick = function() {
                 
                 console.log(imageRef.name);

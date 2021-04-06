@@ -6,6 +6,11 @@ from salvar import salvar
 from download import teste_download
 import pandas as pd
 import csv
+import folium
+from geopy.geocoders import Nominatim
+import pprint
+import urllib.parse
+import requests
 
 
 config = {
@@ -142,14 +147,80 @@ def download():
         print(items[6][0])"""
 
 
-        return render_template('teste.html', results=results,items=items, quantidade_rows=quantidade_rows, df=df, len=len)
+        return render_template('teste.html', results=results,items=items, quantidade_rows=quantidade_rows, df=df, len=len, uid=user_uid, file_name=file_name)
     except Exception as e:
         print(e)
         return "ERROR"
 
+def pegarcoord():
+    geolocator = Nominatim(user_agent="my_user_agent")
+    rua='Largo Maria Martha Ward'
+    city ="Rio de Janeiro"
+    country ="Br"
+    loc = geolocator.geocode(rua+','+city+','+ country)
+    print("latitude is :-" ,loc.latitude,"\nlongtitude is:-" ,loc.longitude)
+
+
+@app.route("/gerargrafico", methods=['POST'])
+def gerargrafico():
+    user_uid = request.form['user_uid']
+    file_name = request.form['filename']
+    df = teste_download(user_uid, file_name)
+    '''latitude = df['lat']
+    longitude = df['long']'''
+    endereco = df['Local da Concentraçao']
+    print(endereco[2])
+    pegarcoord()
+    print("----------")
+
+    return "ok"
+    '''map = folium.Map(
+        location=[latitude[0],longitude[0]],
+        zoom_start=12
+    )
+    folium.Marker(
+        
+        location=[latitude, longitude],
+        popup="<b>"+alerta+"!"+"<b>",
+        icon=folium.Icon(
+            color='red',
+            icon='glyphicon glyphicon-warning-sign'
+        ),
+        tooltip="Clique Aqui!"
+    ).add_to(map)'''
+    
+
+    '''return map._repr_html_()'''
+
 @app.route("/visualizar")
 def pag_visualizar():
     return render_template("visualizar.html")
+
+@app.route("/criar")
+def criar():
+    return render_template("criar.html")
+
+@app.route("/criar_tab", methods=['POST'])
+def criar_tab():
+    valor = request.form['valor']
+    lista = []
+    print("VAlor :", valor)
+
+    valor_a_somar = int(valor)
+    valor_final = valor_a_somar+1
+    print(valor_final)
+    try:
+        for i in range(1,valor_final):
+            nome = request.form[''+str(i)+'']
+            lista.append(nome)
+            print(f"Loop nº {i} + Nome: {nome} ")
+
+            i = i +1
+    except Exception as e:
+        print(e)
+        
+    print(lista)
+    return render_template('linhas.html', lista=lista)
 
 if __name__ == "__main__":
     app.run(debug=True, port=port)

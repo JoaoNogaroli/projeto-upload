@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for item in lista %}
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Continue criando Sua tabela</h5><br>
+
+            <form id="formu" method="POST">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <p>Adicione uma linha referente à coluna</p><a> {{item}}</a>&nbsp;&nbsp;&nbsp; 
+                            <svg id={{item}} xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="a" viewBox="0 0 16 16" >
+                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                            </svg><br><br>
+                            <div id="{{'Clear ' + item}}" class="{{item}}">
+                            <input class="form-control" placeholder='Insira o valor da Linha' name="1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <input id="valor" name="valor" type="text" readonly style="width: 1px;;background-color: white; color:black; text-decoration: none;border:none;">
+                            <input type="submit" class="btn btn-dark" value="Inserir" onclick="pegar()">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<script type="text/javascript">
+
+
+var aqui = document.getElementsByClassName('a')
+var lista_id = [] ;
+Object.keys(aqui).forEach(function (key){
+    item = aqui[key].id
+    console.log(item);
+    lista_id.push(item);
+    //lista_id.appendChild(item);
+    var divv = document.getElementById("Clear "+aqui[key].id);
+    //console.log("DIV " + divv.id)
+
+});
+
+console.log(lista_id);
+
+lista_id.forEach(function(essa){
+    $('#'+essa).click(function(){
+        console.log("VALORRR " + essa)
+        var divv = document.getElementById("Clear "+essa);
+        var input_e = document.createElement('input');
+        input_e.className = 'form-control';
+        input_e.placeholder = 'Insira o nome da Coluna';
+
+        var e = document.forms["formu"] ;
+        e= e.getElementsByTagName('input');
+        qnt_input = e.length-1;
+        input_e.name=qnt_input;
+
+        var br = document.createElement('br');
+        divv.appendChild(br);
+        divv.appendChild(input_e);
+    })
+
+})
+
+
+    
+
+//var id_form = document.getElementById(formu[0].id)
+/*var input_e = document.createElement('input');
+input_e.className = 'form-control';
+input_e.placeholder = 'Insira o nome da Coluna';
+
+var e = document.forms["formu"] ;
+e= e.getElementsByTagName('input');
+qnt_input = e.length-1;
+input_e.name=qnt_input;
+
+var br = document.createElement('br');
+id_form.appendChild(br);
+id_form.appendChild(input_e);*/
+
+/*function pegar(){
+    var e = document.forms["formu"] ;
+    e= e.getElementsByTagName('input');
+    qnt_input = e.length-2;
+    document.getElementById("valor").value = qnt_input;
+    //window.alert("Total :" + qnt_input) ; 
+}*/
+
+</script>
+
+{% endblock %}

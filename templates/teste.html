@@ -30,6 +30,14 @@
 
         </table>
     </div>
+
+    <form action="/gerargrafico" method="POST">
+        <input type="text" name="user_uid" value={{uid}} style="width: 1px;;background-color: white; color:white; text-decoration: none;border:none;"><br>
+        <input type="text" name="filename" value={{file_name}} style="width: 1px;;background-color: white; color:white; text-decoration: none;border:none;"><br>
+        <input type="submit" class="btn btn-dark" value="Gerar Gráficos">
+    </form>
+    <br><br><br>
+
 </div>
 <script type="text/javascript">
     $('#prox').DataTable();
