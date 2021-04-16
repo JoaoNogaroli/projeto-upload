@@ -13,7 +13,6 @@ import urllib.parse
 import requests
 import secrets
 import itertools
-import pusher
 from datetime import datetime
 config = {
     'apiKey': "AIzaSyC2sj1gQU0lSPY8tlnsCsP9bFEXEfx69ec",
