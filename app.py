@@ -32,13 +32,6 @@ app = Flask(__name__)
 
 port = int(os.environ.get("PORT", 5000))
 
-pusher_client = pusher.Pusher(
-  app_id='1184922',
-  key='172519f8f1cb46b08df5',
-  secret='2097baf12c51e484c5a3',
-  cluster='us2',
-  ssl=True
-)
 
 import secrets
 secret_key = secrets.token_hex(16)
@@ -49,9 +42,7 @@ def message():
   try:
     username = request.form.get('username')
     message = request.form.get('message')
-    print(username)
-    print(message)
-    pusher_client.trigger('chat-channel', 'new-message', {'message': message})
+    
   except Exception as e:
     print(e)
   return 'ok'
@@ -103,12 +94,12 @@ def upload_file():
             file_to_save = request.files['file']
             #image.save(os.path.join(app.config['FILE_UPLOADS'], image.filename))
             user_id = request.form['user_id']
-            print(user_id)
-            print(file_to_save)
+            #print(user_id)
+            #print(file_to_save)
             fim = "Arquivo enviado com sucesso"
             error_ext ="Extensão inválida, envie arquivos .xlsx ou .csv"
             if not allow(file_to_save.filename):
-                print("EXTENSAO ERROR")
+                #print("EXTENSAO ERROR")
                 return render_template('user_logged.html', fim=error_ext)
             else:
                 salvar(user_id, file_to_save.filename, file_to_save)
@@ -118,20 +109,20 @@ def upload_file():
 def download():
     user_uid = request.form['user_id_dois']
     file_name = request.form['filename']
-    print(user_uid + "_e_ " + file_name)
-    print('1   -------')
+    #print(user_uid + "_e_ " + file_name)
+    #print('1   -------')
     try:
         results = []
         items= []
         df = teste_download(user_uid, file_name)
-        print(df)
+        #print(df)
 
         #---------- MANIPULAÇÂO
 
         df.drop(columns=range(4,24), inplace=True)
         df.drop(columns=[1,2], inplace=True)
         current_datetime = datetime.now()
-        print("11 ---concatenar")
+        #print("11 ---concatenar")
         data_atual = str(current_datetime.day) +"-"+ str(current_datetime.month) +"-"+ str(current_datetime.year)
         df.rename(columns={
             0: 'nome',
@@ -151,19 +142,19 @@ def download():
         df['idade'] = df.ano_atual.astype(float) - df.ano_nasc.astype(float)
 
         df = df.loc[(df.dia_nasc==df.dia_atual) & (df.mes_nasc==df.mes_atual) ]
-        print("INDEX: ",df.index)
+        #print("INDEX: ",df.index)
         lista_index = []
         for ind in df.index:
             lista_index.append(ind)
         tamanho_index = len(lista_index)
-        print('tamanho index: ', len(lista_index))
+        #print('tamanho index: ', len(lista_index))
         #---------- MANIPULAÇÂO
 
 
-        print('error aqui')
+        #print('error aqui')
         tamanho= int(df.shape[0])
         
-        print('1--------DICIONARIO------')
+        #print('1--------DICIONARIO------')
         
         dfdi= df.to_dict()
 
@@ -174,45 +165,45 @@ def download():
         for row in dfdi:
             items.append(dfdi[row])
 
-        print("TAMANHO ITems: ",tamanho)
+        #print("TAMANHO ITems: ",tamanho)
 
         #print(results)
-        print('2--------Lista com os Results------')
+        #print('2--------Lista com os Results------')
 
         #print(df[results[1]])
         #print("Quantidade de linhas "+str(len(df[results[0]])))
-        print('3--------Teste------')
+        #print('3--------Teste------')
 
         quantidade_rows = df.shape[0]
         #print(df.shape[0])
         #print('4--------Teste  2------')
        #print(items)
-        print('5--------Teste  3------')
+        #print('5--------Teste  3------')
         #for row in items:
-        #    print(row)
+        #    #print(row)
             
             #for index in range(0,len(results)-1):
                 
                 #print(row[results[index]])
-        '''print(items[0][0])
-        print(items[1][0])
-        print(items[2][0])
-        print(items[3][0])
-        print(items[4][0])'''
+        '''#print(items[0][0])
+        #print(items[1][0])
+        #print(items[2][0])
+        #print(items[3][0])
+        #print(items[4][0])'''
 
-        print('6--------Teste  4------')
+        #print('6--------Teste  4------')
         #for row in items:
-       #    # print(row)
+       #    # #print(row)
         #    for i in row:
-             #   print(row[i])
-        """print('7--------Teste 5------')
-        print(items[0])
-        print('8--------Teste6------')
-        print(items[0][0])
-        print('9--------Teste 8------')
-        print(items[6])
-        print('8--------Teste 9------')
-        print(items[6][0])"""
+             #   #print(row[i])
+        """#print('7--------Teste 5------')
+        #print(items[0])
+        #print('8--------Teste6------')
+        #print(items[0][0])
+        #print('9--------Teste 8------')
+        #print(items[6])
+        #print('8--------Teste 9------')
+        #print(items[6][0])"""
 
 
         return render_template('teste.html', results=results,items=items,tamanho=tamanho, quantidade_rows=quantidade_rows, df=df, len=len, uid=user_uid, file_name=file_name,lista_index=lista_index, tamanho_index=tamanho_index)
@@ -226,7 +217,7 @@ def pegarcoord():
     city ="Rio de Janeiro"
     country ="Br"
     loc = geolocator.geocode(rua+','+city+','+ country)
-    print("latitude is :-" ,loc.latitude,"\nlongtitude is:-" ,loc.longitude)
+    #print("latitude is :-" ,loc.latitude,"\nlongtitude is:-" ,loc.longitude)
 
 
 @app.route("/gerargrafico", methods=['POST'])
@@ -237,9 +228,9 @@ def gerargrafico():
     '''latitude = df['lat']
     longitude = df['long']'''
     endereco = df['Local da Concentraçao']
-    print(endereco[2])
+    #print(endereco[2])
     pegarcoord()
-    print("----------")
+    #print("----------")
 
     return "ok"
     '''map = folium.Map(
@@ -273,22 +264,22 @@ def criar():
 def criar_tab():
     valor = request.form['valor']
     lista = []
-    print("VAlor :", valor)
+    #print("VAlor :", valor)
 
     valor_a_somar = int(valor)
     valor_final = valor_a_somar+1
-    print(valor_final)
+    #print(valor_final)
     try:
         for i in range(1,valor_final):
             nome = request.form[''+str(i)+'']
             lista.append(nome)
-            print(f"Loop nº {i} + Nome: {nome} ")
+            #print(f"Loop nº {i} + Nome: {nome} ")
 
             i = i +1
     except Exception as e:
         print(e)
         
-    print(lista)
+    #print(lista)
     return render_template('linhas.html', lista=lista)
 
 @app.route("/criar_tab")
@@ -302,11 +293,11 @@ def testando(id):
     nomes = []
     nome = listinha.split(",")
     nomes.append(nome)
-    print(id)
+    #print(id)
     #print(nomes)
     for item in nomes:
         for i in item:
-            print(i)
+            #print(i)
     return redirect(url_for('criar_tab'))"""
 
 @app.route("/criar_dois")
@@ -318,22 +309,22 @@ def criar_dois_tab():
     valor = request.form['valor']
     global lista_add
     lista = []
-    print("VAlor :", valor)
+    #print("VAlor :", valor)
 
     valor_a_somar = int(valor)
     valor_final = valor_a_somar+1
-    print(valor_final)
+    #print(valor_final)
     try:
         for i in range(1,valor_final):
             nome = request.form[''+str(i)+'']
             lista.append(nome)
-            print(f"Loop nº {i} + Nome: {nome} ")
+            #print(f"Loop nº {i} + Nome: {nome} ")
 
             i = i +1
     except Exception as e:
         print(e)
         
-    print(lista)
+    #print(lista)
     session['lista_add'] = lista
     return render_template('criar_dois_linhas.html', lista=lista)   
 
@@ -345,27 +336,27 @@ def grouper(n, iterable, fillvalue=None):
 @app.route("/criar_novo_linhas", methods=['POST'])
 def criar_novo_linhas():
     lista_pegar = session.get('lista_add')
-    print("Lista das Colunas :", lista_pegar)
-    print("Tamanho das colunas: ", len(lista_pegar))
+    #print("Lista das Colunas :", lista_pegar)
+    #print("Tamanho das colunas: ", len(lista_pegar))
     valor_a_resgatar = request.form['valor_a_resgatar']
     valor_a_resgatar_alterado = valor_a_resgatar.split(',')
     valores_finais = []
     for i in range(1, len(valor_a_resgatar_alterado)-1):
        valores_finais .append(valor_a_resgatar_alterado[i])
-    print("Linhas Resgatadas: ",valores_finais)
+    #print("Linhas Resgatadas: ",valores_finais)
     
     tamanho_total = int(len(valores_finais))
     tamanho_dividido = int(len(valores_finais)/len(lista_pegar))
     
-    print("Tamanho total das linhas: ", tamanho_total)
-    print("Quantas linhas por colunas: ", tamanho_dividido)
+    #print("Tamanho total das linhas: ", tamanho_total)
+    #print("Quantas linhas por colunas: ", tamanho_dividido)
  
     
     novo = list(grouper(int(tamanho_dividido), valores_finais))
 
-    print(novo)
+    #print(novo)
     res = dict(zip(lista_pegar, novo))
-    print(res)
+    #print(res)
 
     #PEGAR COLUNAS
     try:
@@ -382,7 +373,7 @@ def criar_novo_linhas():
         print(e)
     #TRANSFORMOU EM DATAFRAME FINAL
     new = pd.DataFrame.from_dict(res)
-    print(new)
+    #print(new)
     return render_template('last.html', results=results, items=items, len=len)
 
 @app.route("/pag_chat")
