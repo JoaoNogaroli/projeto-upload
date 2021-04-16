@@ -53,7 +53,7 @@ def teste_download(user_uid, file_name):
         
     except:
         print("Tentando Excel")
-        df=pd.read_excel(url, engine='openpyxl') 
+        df=pd.read_excel(url, engine='openpyxl',header=None, index_col=False) 
         return df
  
             

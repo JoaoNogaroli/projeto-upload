@@ -15,13 +15,16 @@
             </tr>
         </thead>
         <tbody>
-            {% for i in range (0, len(items)) %}
+            {% for i in range (0, len(lista_index)) %}
                
                 <tr>
                     {% for row in items %}
+                        
                         <td>
-                            {{ row[i] }}
+                            {{ row[lista_index[i]] }}
                         </td>
+                        
+
                     {% endfor %}
                 </tr>
                

@@ -13,7 +13,8 @@ import urllib.parse
 import requests
 import secrets
 import itertools
-
+import pusher
+from datetime import datetime
 config = {
     'apiKey': "AIzaSyC2sj1gQU0lSPY8tlnsCsP9bFEXEfx69ec",
     'authDomain': "files-b6c7a.firebaseapp.com",
@@ -32,9 +33,29 @@ app = Flask(__name__)
 
 port = int(os.environ.get("PORT", 5000))
 
+pusher_client = pusher.Pusher(
+  app_id='1184922',
+  key='172519f8f1cb46b08df5',
+  secret='2097baf12c51e484c5a3',
+  cluster='us2',
+  ssl=True
+)
+
 import secrets
 secret_key = secrets.token_hex(16)
 app.config['SECRET_KEY'] = secret_key
+
+@app.route("/message", methods=['POST'])
+def message():
+  try:
+    username = request.form.get('username')
+    message = request.form.get('message')
+    print(username)
+    print(message)
+    pusher_client.trigger('chat-channel', 'new-message', {'message': message})
+  except Exception as e:
+    print(e)
+  return 'ok'
 
 
 @app.route("/")
@@ -104,15 +125,57 @@ def download():
         results = []
         items= []
         df = teste_download(user_uid, file_name)
-        dfdi= df.to_dict()
         print(df)
+
+        #---------- MANIPULAÇÂO
+
+        df.drop(columns=range(4,24), inplace=True)
+        df.drop(columns=[1,2], inplace=True)
+        current_datetime = datetime.now()
+        print("11 ---concatenar")
+        data_atual = str(current_datetime.day) +"-"+ str(current_datetime.month) +"-"+ str(current_datetime.year)
+        df.rename(columns={
+            0: 'nome',
+            3:'data_nasc',
+            'data_atual': 'data_atual'
+        }, inplace=True)
+        df['data_atual'] = data_atual
+        df.data_nasc = df.data_nasc.replace('/','-', regex=True)
+        df.drop(df.tail(1).index,inplace=True)
+        df.data_nasc = df.data_nasc.fillna('01-01-1800')
+        df.data_nasc = pd.to_datetime(df.data_nasc,format="%d-%m-%Y")
+        df.data_atual = pd.to_datetime(df.data_atual,format="%d-%m-%Y")
+        df.data_nasc = df.data_nasc.astype('string')
+        df.data_atual = df.data_atual.astype('string')
+        df[['ano_nasc', 'mes_nasc', 'dia_nasc']] = df.data_nasc.str.split('-', expand=True)
+        df[['ano_atual', 'mes_atual', 'dia_atual']] = df.data_atual.str.split('-', expand=True)
+        df['idade'] = df.ano_atual.astype(float) - df.ano_nasc.astype(float)
+
+        df = df.loc[(df.dia_nasc==df.dia_atual) & (df.mes_nasc==df.mes_atual) ]
+        print("INDEX: ",df.index)
+        lista_index = []
+        for ind in df.index:
+            lista_index.append(ind)
+        tamanho_index = len(lista_index)
+        print('tamanho index: ', len(lista_index))
+        #---------- MANIPULAÇÂO
+
+
+        print('error aqui')
+        tamanho= int(df.shape[0])
+        
         print('1--------DICIONARIO------')
+        
+        dfdi= df.to_dict()
 
         for colum in dfdi.keys():
             results.append(colum) 
 
+
         for row in dfdi:
             items.append(dfdi[row])
+
+        print("TAMANHO ITems: ",tamanho)
 
         #print(results)
         print('2--------Lista com os Results------')
@@ -153,7 +216,7 @@ def download():
         print(items[6][0])"""
 
 
-        return render_template('teste.html', results=results,items=items, quantidade_rows=quantidade_rows, df=df, len=len, uid=user_uid, file_name=file_name)
+        return render_template('teste.html', results=results,items=items,tamanho=tamanho, quantidade_rows=quantidade_rows, df=df, len=len, uid=user_uid, file_name=file_name,lista_index=lista_index, tamanho_index=tamanho_index)
     except Exception as e:
         print(e)
         return "ERROR"
@@ -322,6 +385,10 @@ def criar_novo_linhas():
     new = pd.DataFrame.from_dict(res)
     print(new)
     return render_template('last.html', results=results, items=items, len=len)
+
+@app.route("/pag_chat")
+def pag_chat():
+    return render_template('pag_chat.html')
 
 if __name__ == "__main__":
     app.run(debug=True, port=port)
