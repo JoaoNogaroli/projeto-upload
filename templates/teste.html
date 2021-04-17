@@ -34,15 +34,26 @@
         </table>
     </div>
 
-    <form action="/gerargrafico" method="POST">
+    <!--<form action="/gerargrafico" method="POST">
         <input type="text" name="user_uid" value={{uid}} style="width: 1px;;background-color: white; color:white; text-decoration: none;border:none;"><br>
         <input type="text" name="filename" value={{file_name}} style="width: 1px;;background-color: white; color:white; text-decoration: none;border:none;"><br>
         <input type="submit" class="btn btn-dark" value="Gerar Gráficos">
-    </form>
+    </form>-->
     <br><br><br>
 
 </div>
 <script type="text/javascript">
-    $('#prox').DataTable();
+    $('#prox').DataTable( {
+        "order": [[ 4, "desc" ]],
+        "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+            if (aData[4] == "True") {
+            $('td', nRow).css('background-color', 'Green');
+            $('td', nRow).css('color', 'White');
+
+            } else{
+            $('td', nRow).css('background-color', 'White');
+        }
+    }
+    } );
 </script>
 {% endblock %}

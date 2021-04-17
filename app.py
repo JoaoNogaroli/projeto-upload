@@ -109,6 +109,8 @@ def upload_file():
 def download():
     user_uid = request.form['user_id_dois']
     file_name = request.form['filename']
+    select_mes = request.form['select_mes']
+    #print("MES: - ", select_mes)
     #print(user_uid + "_e_ " + file_name)
     #print('1   -------')
     try:
@@ -141,7 +143,16 @@ def download():
         df[['ano_atual', 'mes_atual', 'dia_atual']] = df.data_atual.str.split('-', expand=True)
         df['idade'] = df.ano_atual.astype(float) - df.ano_nasc.astype(float)
 
-        df = df.loc[(df.dia_nasc==df.dia_atual) & (df.mes_nasc==df.mes_atual) ]
+       # df = df.loc[(df.dia_nasc==df.dia_atual) & (df.mes_nasc==df.mes_atual) ]
+        df['aniversario_hoje'] = ((df.dia_nasc.astype(int)==(df.dia_atual.astype(int))) & (df.mes_nasc.astype(int)==df.mes_atual.astype(int)))
+        df = df.loc[(df.mes_nasc.astype(int)==int(select_mes))]
+        #print(df[df['aniversario_hoje']==True])
+
+        df = df.drop(columns=['data_atual','ano_nasc','mes_nasc','ano_atual','mes_atual','dia_atual'])
+        df = df.drop(df[df['idade'] == 221 ].index)
+        df['data_nasc'] = pd.to_datetime(df.data_nasc)
+        df['data_nasc'] = df['data_nasc'].dt.strftime('%d/%m/%Y')
+
         #print("INDEX: ",df.index)
         lista_index = []
         for ind in df.index:
