@@ -67,16 +67,40 @@ function vis(){
             texto = document.createElement('h5')
             texto.className = "card-title";
             texto.innerHTML = imageRef.name;
+            var select_mes = document.createElement("select");
+            select_mes.name = "select_mes";
+            select_mes.className = 'form-select form-select-lg mb-3';
+            let lista_mes=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"]
+            let lista_numero=["1","2","3","4","5","6","7","8","9","10","11","12"]
+            for (var i = 0; i < lista_mes.length; i++) {
+                var option = document.createElement("option");
+                option.value = lista_numero[i];
+                option.text = lista_mes[i];
+                select_mes.appendChild(option);
+            }
             botao_card = document.createElement('button');
-            botao_card.className = "btn btn-outline-success";
+            botao_card.className = "btn btn-outline-success btn-lg";
             botao_card.innerHTML="Ver Tabela";
             botao_card.onclick = function() {
                 
                 console.log(imageRef.name);
                 document.getElementById("filename_dois").value = imageRef.name;
+
             }
+
+            var escolha_mes = document.createElement('h4');
+            escolha_mes.innerHTML =  "Escolha o Mês de Análise";
+            escolha_mes.className = "display-4";
+            var br = document.createElement('br');
+
             divteste_tres.appendChild(imagem_card);
             divteste_tres.appendChild(texto);
+            divteste_tres.appendChild(br);
+            divteste_tres.appendChild(br);
+            divteste_tres.appendChild(escolha_mes);
+            divteste_tres.appendChild(select_mes);
+            divteste_tres.appendChild(br);
+            divteste_tres.appendChild(br);
             divteste_tres.appendChild(botao_card);
             divteste_dois_card.appendChild(divteste_tres);
             divteste_dois.appendChild(divteste_dois_card);
